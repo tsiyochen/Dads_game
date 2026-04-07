@@ -1,5 +1,5 @@
 {
-  "name": "台灣十三支 (Chinese Poker)",
-  "description": "正宗台灣玩法十三支，支援 2 人及 4 人對戰模式。包含 AI 思考模擬、自動理牌、擺烏龍檢查及特殊牌型加分系統。",
+  "name": "十三支 (Chinese Poker)",
+  "description": "正宗玩法十三支，支援 2 人及 4 人對戰模式。包含 AI 思考模擬、自動理牌、擺烏龍檢查及特殊牌型加分系統。",
   "requestFramePermissions": []
 }

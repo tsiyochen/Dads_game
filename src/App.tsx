@@ -83,7 +83,7 @@ export default function App() {
   const [aiReady, setAiReady] = useState<Record<string, boolean>>({});
   const [comparisons, setComparisons] = useState<ComparisonResult[]>([]);
   const [selectedCards, setSelectedCards] = useState<string[]>([]);
-  const [message, setMessage] = useState<string>('歡迎來到台灣十三支！');
+  const [message, setMessage] = useState<string>('歡迎來到十三支！');
   const [showRules, setShowRules] = useState(false);
   const [activeResultTab, setActiveResultTab] = useState<string>('');
 
@@ -354,7 +354,7 @@ export default function App() {
               <Trophy className="text-emerald-900 w-6 h-6" />
             </div>
             <h1 className="text-2xl md:text-4xl font-black tracking-tighter">
-              台灣十三支
+              十三支
             </h1>
           </div>
           
@@ -872,7 +872,7 @@ export default function App() {
 
       {/* Footer */}
       <footer className="mt-12 text-emerald-600 text-sm font-medium">
-        © 2026 正宗台灣十三支 · 策略理牌遊戲
+        © 2026 正宗十三支 · 策略理牌遊戲
       </footer>
     </div>
   );
