@@ -1,0 +1,61 @@
+name: Deploy to GitHub Pages
+
+on:
+  # 當程式碼推送到 main 分支時觸發
+  push:
+    branches: ["main"]
+  # 允許從 GitHub Actions 頁面手動觸發
+  workflow_dispatch:
+
+# 設定 GITHUB_TOKEN 的權限，允許部署到 GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 確保同一時間只有一個部署在進行，避免衝突
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # 第一階段：建置 (Build)
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Build project
+        # 這裡動態傳入 repository name 作為 base path，解決 Vite 在 GitHub Pages 的白畫面問題
+        run: npm run build -- --base=/${{ github.event.repository.name }}/
+        
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v4
+        
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Vite 預設的打包輸出目錄是 dist
+          path: './dist'
+
+  # 第二階段：部署 (Deploy)
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
